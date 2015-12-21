@@ -5,19 +5,33 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		// home page
 		.when('/', {
 			templateUrl: 'views/home.html',
-			controller: 'MainController'
+			controller: 'MainController',
+			activetab: 'stocks'
 		})
 
-		.when('/nerds', {
-			templateUrl: 'views/nerd.html',
-			controller: 'NerdController'
+		.when('/stocks', {
+			templateUrl: 'views/stocks.html',
+			controller: 'StocksController',
+			activetab: 'stocks'
 		})
 
-		.when('/geeks', {
-			templateUrl: 'views/geek.html',
-			controller: 'GeekController'	
+		.when('/watchlists', {
+			templateUrl: 'views/watchlists.html',
+			controller: 'WatchlistsController',
+			activetab: 'watchlists'
+		})
+
+		.when('/scraper', {
+			templateUrl: 'views/scraper.html',
+			controller: 'ScraperController',
+			activetab: 'scraper'
+		})
+
+		.when('/calendar', {
+			templateUrl: 'views/calendar.html',
+			controller: 'CalendarController',
+			activetab: 'calendar'
 		});
-
 	$locationProvider.html5Mode(true);
 
 }]);

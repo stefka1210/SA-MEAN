@@ -1,1 +1,211 @@
-body { padding-top:30px; }
+@font-face {
+    font-family: Brandon-Light;
+    src: url("/fonts/Brandon_light.otf") format('opentype');
+}
+
+@font-face {
+    font-family: Brandon-Medium;
+    src: url("/fonts/Brandon_med.otf") format('opentype');
+}
+
+@font-face {
+    font-family: Brandon-Bold;
+    src: url("/fonts/Brandon_bld.otf") format('opentype');
+}
+@font-face {
+    font-family: Gotham-Cnd-Light;
+    src: url("/fonts/GothamCondensedLightRegular.otf") format('opentype');
+}
+@font-face {
+    font-family: Gotham-Cnd-Medium;
+    src: url("/fonts/GothamCondensedMedium.otf") format('opentype');
+}
+@font-face {
+    font-family: Gotham-Cnd-Bold;
+    src: url("/fonts/GothamCondensedBold.otf") format('opentype');
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3 ,h4 {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, rgba(36,37,39,1) 0%, rgba(32,33,36,1) 100%);
+    font-size: 14px;
+    color: white;
+    font-family: Brandon-Medium, Helvetica, sans-serif;
+}
+
+header {
+    width: 100%;
+    height: 90px;
+    background: #292A2D;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.3);
+}
+
+.logo {
+    width: 200px;
+    height: 44px;
+    margin-right: 45px;
+}
+
+.mainMenu {
+    display: flex;
+    margin-top: 10px;
+}
+
+.mainMenu .menuItem {
+    margin-right: 16px;
+}
+
+.menuItem a {
+    color: white;
+    text-decoration: none;
+    font-family: Brandon-Medium;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid transparent;
+    transition: all 400ms;
+    cursor: pointer;
+}
+
+.menuItem a:hover {
+    border-bottom: 2px solid #00ADE0;
+}
+
+.menuItem.active a {
+    color: #00ADE0;
+}
+
+.container {
+    height: 100vh;
+    padding-top: 90px;
+    display: flex;
+    justify-content: center;
+}
+
+.view {
+    width: 100%;
+}
+
+.content {
+    padding-top: 30px;
+    display: flex;
+}
+
+.subMenu {
+    width: 270px;
+    position: fixed;
+}
+
+.subMenu .menuHead {
+    font-size: 16px;
+    font-family: Brandon-Light;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: flex-start;
+    height: 40px;
+}
+
+.subMenu .menuItem {
+    height: 40px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+}
+
+.main {
+    margin: 0 auto;
+}
+
+#stocks .stock {
+    width: 420px;
+    height: 82px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    background: #292A2D;
+    padding: 16px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#stocks .stock .pointWrap {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+#stocks .stock .pointShape {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#stocks .stock .pointShape.buy {
+    background: linear-gradient(to top, rgba(65,147,0,1) 0%, rgba(134,192,25,1) 100%);
+}
+
+#stocks .stock .pointShape.hold {
+    background: linear-gradient(to top, rgba(239,91,2,1) 0%, rgba(247,152,25,1) 100%);
+}
+
+#stocks .stock .pointShape.sell {
+    background: linear-gradient(to top, rgba(162,0,7,1) 0%, rgba(206,24,67,1) 100%);
+}
+
+#stocks .stock .pointNumber {
+    font-family: Gotham-Cnd-Medium;
+    font-size: 32px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    line-height: 30px;
+    margin-top: 5px;
+}
+
+#stocks .stock .pointLabel {
+    font-family: Gotham-Cnd-Light;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    line-height: 12px;
+}
+
+#stocks .stock .bodyWrap {
+    margin: 0px 16px;
+}
+
+#stocks .stock .title {
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 32px;
+}
+
+#stocks .meta {
+    display: flex;
+}
+
+#stocks .timeScraped, #stocks .watchlist {
+    font-size: 12px;
+    color: #999;
+}
+
+#stocks .watchlist {
+    margin-left: 20px;
+}
