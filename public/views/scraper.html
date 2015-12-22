@@ -7,5 +7,13 @@
 
     <button ng-click="getBears()">Hol Bären</button>
 
+
     <button ng-click="scrap()">Scrap</button>
+
+    <input type="text" ng-model="bearName" placeholder="Enter a bearname here">
+    <span>{{ bearName }}</span>
+
+    <input type="text" ng-model="bearHobby" placeholder="Enter a bearhobby here">
+    <span>{{ bearHobby }}</span>
+    <button ng-click="postBear()">Post bear</button>
 </div>

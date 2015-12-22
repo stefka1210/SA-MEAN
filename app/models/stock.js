@@ -9,12 +9,35 @@ var Schema       = mongoose.Schema;
 var StockSchema   = new Schema({
     name: String,
     ofObjectId: [Schema.Types.ObjectId],
-    url: String,
-    indexMembership: [],
-    watchlistMembership: [],
-    timeOfLastScrap: String,
-    lastQR: String,
-    nextQR: String,
+    kpiurl: String,                                         // url für die Kennzahlen - kpis
+    ratesurl: String,                                       // url für die historischen Kurse - rates
+    indexMembership: { type : Array , "default": [] },     // array von den Indices in welche die Aktie gelistet ist
+    watchlistMembership: { type : Array , "default": [] }, // array von den watchlists in welche die Aktie steht
+    lastQR: Date,                                           // Zeitpunkt des letzten Quartalsberichts
+    nextQR: Date,                                           // Zeitpunkt des nächsten Quartalsberichts
+
+    kpiScraps: [{
+        kpis: { // wird bei jedem scrap hinzugefügt
+            timeOfScrap: { type: Date, default: Date.now },         // Zeitpunkt des scraps der Aktie
+            ekr: String,                                            // Eigenkapitalrendite
+            ebitMarge: String,                                      // EBIT-Marge
+            ekq: String,                                            // Eigenkapitalquote
+            kgvNow: String,                                         // aktuelles KGV
+            kgvAvg: String,                                         // Kgv-Jahresdurchnitt
+            kgvYears: String,                                       // Anzahl der vergangenen KGVs die den Durchschnitt (kgvAvg) bilden
+            eps: String,                                            // Gewinnwachstum
+            priceSixMonth: String,                                  // Kurs vor 6 Monaten
+            priceOneYear: String,                                   // Kurs vor 1 Jahr
+            priceMomentum: String,                                  // Kursmomentum
+            analystCount: String,                                   // Anzahl der Analysten
+            analystGrade: String,                                   // Note der Analysten
+            qrReaction: String,                                     // Reaktion auf den letzten Quartalsbericht
+            earnRevision: String                                    // Gewinnrevision, Veränderung des EPS
+        }
+    }]
+
+
+
 });
 
 module.exports = mongoose.model('Stock', StockSchema);
