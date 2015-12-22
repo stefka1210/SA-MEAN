@@ -24,39 +24,31 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
 
     //$scope.bearName = {};
 
-    $scope.postBear = function(){
-        console.log('add a bear');
-
-        //var url = 'http://localhost:8080/api/bears';
-        //var data = {name: $scope.bearName };
-
+    $scope.postStock = function(){
         $http({
             method: 'Post',
-            url: 'http://localhost:8080/api/bears',
+            url: 'http://localhost:8080/api/addStock',
             data: {
-                name: $scope.bearName,
-                hobby: $scope.bearHobby
+                name: $scope.stock_name,
+                kpiurl: $scope.stock_kpiurl,
+                ratesurl: $scope.stock_ratesurl
             },
             body : {'Content-Type': 'application/x-www-form-urlencoded'}
-        })
-            .success(function(data) {
-                if (data.errors) {
-                    // Showing errors.
-                    //$scope.errorName = data.errors.name;
-                    //$scope.errorUserName = data.errors.username;
-                    //$scope.errorEmail = data.errors.email;
-                } else {
-                    //$scope.message = data.message;
-                }
-            });
-        //$http.post(url, data).then(
-        //    function(response) {
-        //        console.log('success',response);
-        //
-        //    },
-        //    function(data) {
-        //        // Handle error here
-        //    })
+        }).then(
+            function(response) {
+                console.log(response.data.message)
+        });
+            //.success(function(data) {
+            //    //if (data.errors) {
+            //    //    // Showing errors.
+            //    //    //$scope.errorName = data.errors.name;
+            //    //    //$scope.errorUserName = data.errors.username;
+            //    //    //$scope.errorEmail = data.errors.email;
+            //    //} else {
+            //    //    //$scope.message = data.message;
+            //    //}
+            //});
+
     };
 
 

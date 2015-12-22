@@ -8,7 +8,6 @@ var Schema       = mongoose.Schema;
 
 var StockSchema   = new Schema({
     name: String,
-    ofObjectId: [Schema.Types.ObjectId],
     kpiurl: String,                                         // url für die Kennzahlen - kpis
     ratesurl: String,                                       // url für die historischen Kurse - rates
     indexMembership: { type : Array , "default": [] },     // array von den Indices in welche die Aktie gelistet ist

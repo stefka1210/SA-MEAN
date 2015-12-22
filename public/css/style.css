@@ -34,10 +34,51 @@ h1, h2, h3 ,h4 {
     margin: 0;
     padding: 0;
     line-height: normal;
+    text-transform: uppercase;
 }
 
 input {
+    color: #fff;
+    border: 1px solid transparent;
+    outline: none;
+    padding: 0px 5px;
+    height: 32px;
+    background: #202124;
+    font-family: Brandon-Light;
+    font-size: 16px;
+}
+
+input:focus, input:focus:hover {
+    box-shadow: 0 0 10px 0px rgba(0, 173, 224, 0.5);
+
+}
+
+input:hover {
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+button {
+    background: #00ADE0;
+    color: white;
+    border: none;
+    height: 32px;
+    padding: 0px 10px;
+    vertical-align: top;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    transition: all 400ms;
+    font-family: Brandon-Light, Helvetica, sans-serif;
+
+}
+
+label {
     color: #999;
+}
+
+button:hover {
+    background: #096991;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
+    transition: all 400ms;
 }
 
 body {
@@ -46,7 +87,7 @@ body {
     background: linear-gradient(to right, rgba(36,37,39,1) 0%, rgba(32,33,36,1) 100%);
     font-size: 14px;
     color: white;
-    font-family: Brandon-Medium, Helvetica, sans-serif;
+    font-family: Brandon-Light, Helvetica, sans-serif;
 }
 
 header {
@@ -212,4 +253,26 @@ header {
 
 #stocks .watchlist {
     margin-left: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form button {
+    margin-top: 20px;
+}
+
+.formWrap {
+    background: #292A2D;
+    width: 800px;
+    padding: 16px;
+    margin: 0 auto;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }

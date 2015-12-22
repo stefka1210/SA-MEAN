@@ -1,6 +1,7 @@
 var express			= require('express');
 var router 			= express.Router();    // get an instance of the express Router
 var Bear     		= require('./models/bear');
+var Stock     		= require('./models/stock');
 var Scraper     	= require('./scraper/test');
 
 module.exports = function(app) {
@@ -19,6 +20,39 @@ module.exports = function(app) {
 		router.get('/', function(req, res) {
 			res.json({ message: 'hooray! welcome to our api!' });
 		});
+
+	// on routes that end in /bears
+	// ----------------------------------------------------
+	router.route('/addStock')
+
+		// create a stock (accessed at POST http://localhost:8080/api/addStock)
+		.post(function(req, res) {
+
+			var stock = new Stock();      // create a new instance of the Bear model
+			stock.name = req.body.name;  // set the stock name (comes from the request)
+			stock.kpiurl = req.body.kpiurl;
+			stock.ratesurl = req.body.ratesurl;
+
+			// save the stock and check for errors
+			stock.save(function(err) {
+				if (err)
+					res.send(err);
+
+				res.json({ message: 'Stock '+ stock.name +' created!'});
+			});
+		})
+
+		// get all the stocks (accessed at GET http://localhost:8080/api/bears)
+		.get(function(req, res) {
+			Stock.find(function(err, stocks) {
+				if (err)
+					res.send(err);
+
+				res.json(stocks);
+			});
+		});
+
+
 
 
 	// on routes that end in /bears
