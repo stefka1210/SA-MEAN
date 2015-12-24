@@ -148,6 +148,7 @@ header {
 .content {
     padding-top: 30px;
     display: flex;
+    flex-direction: column;
 }
 
 .subMenu {
@@ -170,10 +171,12 @@ header {
     letter-spacing: 0.05em;
     display: flex;
     align-items: center;
+    text-transform: uppercase;
 }
 
 .main {
-    margin: 0 auto;
+    display: flex;
+    align-self: center;
 }
 
 #stocks .stock {
@@ -249,6 +252,7 @@ header {
 #stocks .timeScraped, #stocks .watchlist {
     font-size: 12px;
     color: #999;
+    font-family: Brandon-Bold;
 }
 
 #stocks .watchlist {
@@ -266,7 +270,7 @@ form button {
 
 .formWrap {
     background: #292A2D;
-    width: 800px;
+    width: 600px;
     padding: 16px;
     margin: 0 auto;
 }

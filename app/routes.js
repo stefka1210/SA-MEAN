@@ -2,6 +2,7 @@ var express			= require('express');
 var router 			= express.Router();    // get an instance of the express Router
 var Bear     		= require('./models/bear');
 var Stock     		= require('./models/stock');
+var ScrapKpis    	= require('./scraper/scrapKpis');
 var Scraper     	= require('./scraper/test');
 
 module.exports = function(app) {
@@ -28,10 +29,11 @@ module.exports = function(app) {
 		// create a stock (accessed at POST http://localhost:8080/api/addStock)
 		.post(function(req, res) {
 
-			var stock = new Stock();      // create a new instance of the Bear model
+			var stock = new Stock();      // create a new instance of the Stock model
 			stock.name = req.body.name;  // set the stock name (comes from the request)
 			stock.kpiurl = req.body.kpiurl;
 			stock.ratesurl = req.body.ratesurl;
+			s
 
 			// save the stock and check for errors
 			stock.save(function(err) {
@@ -40,16 +42,69 @@ module.exports = function(app) {
 
 				res.json({ message: 'Stock '+ stock.name +' created!'});
 			});
-		})
+		});
 
-		// get all the stocks (accessed at GET http://localhost:8080/api/bears)
+    router.route('/scrapKpis')
+         //scrap all the stocks
+        .post(function(req, res, next) {
+
+            console.log('scrapKpis...');
+
+            Stock.find(function(err, stocks) {
+                if (err)
+                    res.send(err);
+
+                for(var i= 0; i < stocks.length; i++) {
+                    //console.log(stocks[i].kpiurl);
+                    //console.log(stocks[i]._id);
+
+                    //stocks[i].kpiScraps.ekr = i + '3';
+
+					stocks[i].kpiScraps.push({ekr: 22, ekq: 98});
+                    stocks[i].save(function (err) {
+                        if (err) return handleError(err);
+                        res.send(stocks[i]);
+                    });
+
+                    ScrapKpis(stocks[i].kpiurl, function(result){
+                        //console.log('result: ' + result.kpis.ekq);
+
+
+                    });
+                }
+            });
+
+
+
+            ScrapKpis();
+
+            res.json({ server: 'scrapKpis...' });
+
+
+            next(); // pass control to the next handler
+
+
+        });
+
+	router.route('/find_dax')
+	// create a stock (accessed at POST http://localhost:8080/api/addStock)
 		.get(function(req, res) {
-			Stock.find(function(err, stocks) {
-				if (err)
-					res.send(err);
 
-				res.json(stocks);
-			});
+			// TODO: findbyName ändern in findbyIndexMembership z.B um alle Dax-Mitglieder aufzulisten
+			Stock.findOne({ 'name': 'Siemens' },   {} , function (err, lastKpiScrap) {
+				if (err) return handleError(err);
+
+				var length = lastKpiScrap.kpiScraps.length;
+
+				//TODO: Auseinanderschnippeln am Client machen?
+				//der letzte kpiScrap der Aktie
+				console.log(lastKpiScrap.kpiScraps[length-1]);
+				res.json(lastKpiScrap.kpiScraps[length-1]);
+
+				// ekr im  letzten kpiScrap der Aktie
+				//console.log(lastKpiScrap.kpiScraps[length-1].ekr);
+				//res.json(lastKpiScrap.kpiScraps[length-1].ekr);
+			})
 		});
 
 

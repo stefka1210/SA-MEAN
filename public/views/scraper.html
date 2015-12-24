@@ -16,32 +16,42 @@
     <!--<input type="text" ng-model="bearHobby" placeholder="Enter a bearhobby here">-->
     <!--<span>{{ bearHobby }}</span>-->
     <!--<button ng-click="postBear()">Post bear</button>-->
+    <div class="subMenu">
+        <div class="menuHead">Stock Setting</div>
 
-    <div class="formWrap">
-        <div class="formHead">
-            <h2>Add a Stock</h2>
-            <p>Add a Stock to the Database</p>
+        <div class="indices">
+            <div class="menuItem"><a>add a stock</a></div>
+            <div class="menuItem"><a>Reportdates</a></div>
+            <div class="menuItem"><a>Scraper</a></div>
         </div>
-        <form name="addStockForm" ng-submit="submitForm()">
-            <div class="formGroup">
-                <label>
-                    <span>Stockname</span>
-                </label>
-                <input type="text" name="stockname" class="" ng-model="stock_name">
+    </div>
+    <div class="main">
+        <div class="formWrap">
+            <div class="formHead">
+                <h2>Add a Stock</h2>
+                <p>Add a Stock to the Database</p>
             </div>
-            <div class="formGroup">
-                <label>
-                    <span>KPI-Url</span>
-                </label>
-                <input type="text" name="kpiurl" class="" ng-model="stock_kpiurl">
-            </div>
-            <div class="formGroup">
-                <label>
-                    <span>Rates-Url</span>
-                </label>
-                <input type="text" name="ratesurl" class="" ng-model="stock_ratesurl">
-            </div>
-            <button ng-click="postStock()">POST STOCK</button>
-        </form>
+            <form name="addStockForm" ng-submit="submitForm()">
+                <div class="formGroup">
+                    <label>
+                        <span>Stockname</span>
+                    </label>
+                    <input type="text" name="stockname" class="" ng-model="stock_name">
+                </div>
+                <div class="formGroup">
+                    <label>
+                        <span>KPI-Url</span>
+                    </label>
+                    <input type="text" name="kpiurl" class="" ng-model="stock_kpiurl">
+                </div>
+                <div class="formGroup">
+                    <label>
+                        <span>Rates-Url</span>
+                    </label>
+                    <input type="text" name="ratesurl" class="" ng-model="stock_ratesurl">
+                </div>
+                <button ng-click="postStock()">POST STOCK</button>
+            </form>
+        </div>
     </div>
 </div>

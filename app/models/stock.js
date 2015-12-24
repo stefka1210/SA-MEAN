@@ -16,26 +16,22 @@ var StockSchema   = new Schema({
     nextQR: Date,                                           // Zeitpunkt des nächsten Quartalsberichts
 
     kpiScraps: [{
-        kpis: { // wird bei jedem scrap hinzugefügt
-            timeOfScrap: { type: Date, default: Date.now },         // Zeitpunkt des scraps der Aktie
-            ekr: String,                                            // Eigenkapitalrendite
-            ebitMarge: String,                                      // EBIT-Marge
-            ekq: String,                                            // Eigenkapitalquote
-            kgvNow: String,                                         // aktuelles KGV
-            kgvAvg: String,                                         // Kgv-Jahresdurchnitt
-            kgvYears: String,                                       // Anzahl der vergangenen KGVs die den Durchschnitt (kgvAvg) bilden
-            eps: String,                                            // Gewinnwachstum
-            priceSixMonth: String,                                  // Kurs vor 6 Monaten
-            priceOneYear: String,                                   // Kurs vor 1 Jahr
-            priceMomentum: String,                                  // Kursmomentum
-            analystCount: String,                                   // Anzahl der Analysten
-            analystGrade: String,                                   // Note der Analysten
-            qrReaction: String,                                     // Reaktion auf den letzten Quartalsbericht
-            earnRevision: String                                    // Gewinnrevision, Veränderung des EPS
-        }
-    }]
-
-
+        timeOfScrap: { type: Date, default: Date.now },
+        ekr: {type: String },
+        ebitMarge: { type: String },                                      // EBIT-Marge
+        ekq: { type: String },                                            // Eigenkapitalquote
+        kgvNow: { type: String },                                         // aktuelles KGV
+        kgvAvg: { type: String },                                         // Kgv-Jahresdurchnitt
+        kgvYears: { type: String },                                       // Anzahl der vergangenen KGVs die den Durchschnitt (kgvAvg) bilden
+        eps: { type: String },                                            // Gewinnwachstum
+        priceSixMonth: { type: String },                                  // Kurs vor 6 Monaten
+        priceOneYear: { type: String },                                   // Kurs vor 1 Jahr
+        priceMomentum: { type: String },                                  // Kursmomentum
+        analystCount: { type: String },                                   // Anzahl der Analysten
+        analystGrade: { type: String },                                   // Note der Analysten
+        qrReaction: { type: String },                                     // Reaktion auf den letzten Quartalsbericht
+        earnRevision: { type: String }
+    }],
 
 });
 
