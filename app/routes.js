@@ -30,10 +30,11 @@ module.exports = function(app) {
 		.post(function(req, res) {
 
 			var stock = new Stock();      // create a new instance of the Stock model
-			stock.name = req.body.name;  // set the stock name (comes from the request)
+			stock.name = req.body.name.toLowerCase();  // set the stock name (comes from the request)
 			stock.kpiurl = req.body.kpiurl;
 			stock.ratesurl = req.body.ratesurl;
-			s
+			stock.indexMembership.push(req.body.indexMembership.toLowerCase());
+
 
 			// save the stock and check for errors
 			stock.save(function(err) {
@@ -86,17 +87,16 @@ module.exports = function(app) {
 
         });
 
-	router.route('/find_dax')
+	router.route('/find_name')
 	// create a stock (accessed at POST http://localhost:8080/api/addStock)
 		.get(function(req, res) {
 
-			// TODO: findbyName ändern in findbyIndexMembership z.B um alle Dax-Mitglieder aufzulisten
+
 			Stock.findOne({ 'name': 'Siemens' },   {} , function (err, lastKpiScrap) {
 				if (err) return handleError(err);
 
 				var length = lastKpiScrap.kpiScraps.length;
 
-				//TODO: Auseinanderschnippeln am Client machen?
 				//der letzte kpiScrap der Aktie
 				console.log(lastKpiScrap.kpiScraps[length-1]);
 				res.json(lastKpiScrap.kpiScraps[length-1]);
@@ -104,6 +104,20 @@ module.exports = function(app) {
 				// ekr im  letzten kpiScrap der Aktie
 				//console.log(lastKpiScrap.kpiScraps[length-1].ekr);
 				//res.json(lastKpiScrap.kpiScraps[length-1].ekr);
+			})
+		});
+
+	// hol alle stocks die im X-index sind (accessed at GET http://localhost:8080/api//findbyindex/dax)
+	router.route('/findbyindex/:index')
+		// finde eine Aktie mit indexMembership dax
+		.get(function(req, res) {
+
+			Stock.find({ 'indexMembership': req.params.index },   {} , function (err, stocksInIndex) {
+				if (err) return handleError(err);
+
+				console.log(stocksInIndex);
+				res.json(stocksInIndex);
+
 			})
 		});
 

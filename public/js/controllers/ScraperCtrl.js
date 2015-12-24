@@ -22,7 +22,6 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
             })
     };
 
-    //$scope.bearName = {};
 
     $scope.postStock = function(){
         $http({
@@ -31,7 +30,8 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
             data: {
                 name: $scope.stock_name,
                 kpiurl: $scope.stock_kpiurl,
-                ratesurl: $scope.stock_ratesurl
+                ratesurl: $scope.stock_ratesurl,
+                indexMembership: $scope.stock_indexMembership
             },
             body : {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(
@@ -48,7 +48,23 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
             //    //    //$scope.message = data.message;
             //    //}
             //});
+    };
 
+
+    // TODO: muss in StocksCrtl, hat hier nix zu suchen
+    $scope.getStocksShort = function(){
+
+        var url = 'http://localhost:8080/api/finfbyindex:' + $scope.selectedIndex;
+        $http.get(url).then(
+            function(response) {
+                console.log('success',response);
+
+                var stock = response.data[1].name;
+                $scope.stock = stock;
+            },
+            function(data) {
+                // Handle error here
+            })
     };
 
 
