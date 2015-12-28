@@ -31,7 +31,7 @@ var StockSchema   = new Schema({
         analystGrade: { type: String },                                   // Note der Analysten
         qrReaction: { type: String },                                     // Reaktion auf den letzten Quartalsbericht
         earnRevision: { type: String }
-    }],
+    }]
 
 });
 
