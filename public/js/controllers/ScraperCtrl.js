@@ -9,7 +9,7 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
     $scope.getBears = function(){
         console.log('Die Bären sind los');
 
-        var url = 'http://localhost:8080/api/bears';
+        var url = 'http://localhost:8081/api/bears';
         $http.get(url).then(
             function(response) {
                 console.log('success',response);
@@ -26,7 +26,7 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
     $scope.postStock = function(){
         $http({
             method: 'Post',
-            url: 'http://localhost:8080/api/addStock',
+            url: 'http://localhost:8081/api/addStock',
             data: {
                 name: $scope.stock_name,
                 kpiurl: $scope.stock_kpiurl,
@@ -54,7 +54,7 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
     // TODO: muss in StocksCrtl, hat hier nix zu suchen
     $scope.getStocksShort = function(){
 
-        var url = 'http://localhost:8080/api/finfbyindex:' + $scope.selectedIndex;
+        var url = 'http://localhost:8081/api/finfbyindex:' + $scope.selectedIndex;
         $http.get(url).then(
             function(response) {
                 console.log('success',response);
@@ -72,7 +72,7 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
     $scope.scrap = function() {
         console.log('Scrap?');
 
-        var url = 'http://localhost:8080/scraper';
+        var url = 'http://localhost:8081/scraper';
         $http.post(url).then(
             function(response) {
                 console.log('success, Scraper(Client) ausgelöst', response.data.message)
