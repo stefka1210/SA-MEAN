@@ -65,16 +65,38 @@ module.exports = function(url) {
                     }
                 }
 
+            // umwandeln von kpisPerYear in einen Array, sonst nur mit genauem String ansprechbar
             var array = Object.keys(kpisPerYear).map(function (key) { return kpisPerYear[key]});
-            console.log('array: ' + array[0]['Eigenkapitalrendite']);
 
-                //console.log('test: ' + Object.keys(kpisPerYear[year]));
+
+            // Berechne kgvAvg und kgvAvg.length (Durchschnitts-KGV)
+            var kgvArray = [];
+            var kgvSum = 0;
+
+            for (var m = 0; m < 5; m++) {
+                if(array[m]['KGV'] != '-')
+                    kgvArray.push(parseFloat(array[m]['KGV'].replace(',','.').replace(' ','')));
+            }
+
+            for(var n = 0; n < kgvArray.length; n++) {
+                kgvSum += kgvArray[n];
+            }
+
+            kgvSum = kgvSum.toFixed(2);
+
+            var kgvAverage = kgvSum / kgvArray.length;
+            kgvAverage = kgvAverage.toFixed(4);
+
+            //console.log('kgvArray: ' + kgvArray + ':::' + 'kgvArray.length: ' + kgvArray.length + ' kgvSum: ' + kgvSum + ' kgvAverage: ' + kgvAverage);
 
                 var resultData =
                     {
-                        ekr: array[0]['Eigenkapitalrendite'],
-                        ebitMarge: array[0]['EBIT-Marge'],
-                        ekq: array[0]['Eigenkapitalquote']
+                        ekr: array[3]['Eigenkapitalrendite'],
+                        ebitMarge: array[3]['EBIT-Marge'],
+                        ekq: array[3]['Eigenkapitalquote'],
+                        kgvNow: array[3]['KGV'],
+                        kgvAvg: kgvAverage,
+                        kgvYears: kgvArray.length
                     };
 
                 resolve(resultData);
