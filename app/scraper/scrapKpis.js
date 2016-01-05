@@ -68,7 +68,6 @@ module.exports = function(url) {
             // umwandeln von kpisPerYear in einen Array, sonst nur mit genauem String ansprechbar
             var array = Object.keys(kpisPerYear).map(function (key) { return kpisPerYear[key]});
 
-
             // Berechne kgvAvg und kgvAvg.length (Durchschnitts-KGV)
             var kgvArray = [];
             var kgvSum = 0;
