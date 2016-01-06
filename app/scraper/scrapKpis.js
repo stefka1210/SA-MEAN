@@ -72,6 +72,7 @@ module.exports = function(url) {
             var kgvArray = [];
             var kgvSum = 0;
 
+            // falls kgv nicht '-' ist (also NUMBER), push ihn in den array
             for (var m = 0; m < 5; m++) {
                 if(array[m]['KGV'] != '-')
                     kgvArray.push(parseFloat(array[m]['KGV'].replace(',','.').replace(' ','')));
@@ -81,6 +82,8 @@ module.exports = function(url) {
                 kgvSum += kgvArray[n];
             }
 
+            console.log(typeof kgvArray.length);
+
             kgvSum = kgvSum.toFixed(2);
 
             var kgvAverage = kgvSum / kgvArray.length;
@@ -88,14 +91,67 @@ module.exports = function(url) {
 
             //console.log('kgvArray: ' + kgvArray + ':::' + 'kgvArray.length: ' + kgvArray.length + ' kgvSum: ' + kgvSum + ' kgvAverage: ' + kgvAverage);
 
+
+            //Umwandeln in NUMBER für die Punktberechnung
+            var ekr = parseFloat(array[2]['Eigenkapitalrendite'].replace(',','.').replace(' ',''));
+            var ebitMarge = parseFloat(array[2]['EBIT-Marge'].replace(',','.').replace(' ',''));
+            var ekq = parseFloat(array[2]['Eigenkapitalquote'].replace(',','.').replace(' ',''));
+            var kgvNow = parseFloat(array[3]['KGV'].replace(',','.').replace(' ',''));
+            var kgvYears = kgvArray.length;
+            var eps = parseFloat(array[5]['Gewinnwachstum'].replace(',','.').replace(' ',''));
+
+            //calculate Points for Eigenkapitalrendite - ekr, reward für kgvpoints, quantity und minQuantity für kgvAverage
+            function calcPoints(reward, top, bottom, value, quantity, minQuantity) {
+                var points = 0;
+
+                if (reward == 'max'&& value >= top && quantity >= minQuantity) {
+                    points = 1;
+                } else if (reward == 'max'&& value <= bottom) {
+                    points =  -1;
+                } else if (reward == 'min'&& value <= top) {
+                    points =  1;
+                } else if (reward == 'min'&& value >= bottom) {
+                    points =  -1;
+                } else {
+                    points = 0;
+                }
+
+                return points;
+            }
+
+            var ekrPoints = calcPoints('max',20,10,ekr,0,0);
+            var ebitMargePoints = calcPoints('max',12,6,ebitMarge,0,0);
+            var ekqPoints = calcPoints('max',25,15,ekq,0,0);
+            var kgvNowPoints = calcPoints('min',12,16,kgvNow,0,0);
+            var kgvAvgPoints = calcPoints('min',12,16,kgvAverage,kgvYears,3);
+            var epsPoints = calcPoints('max',5,5,eps,0,0);
+
+            var sumPoints = ekrPoints + ebitMargePoints + ekqPoints + kgvNowPoints + kgvAvgPoints + epsPoints;
+
+            //console.log('--------ekrPoints:' + ekrPoints);
+            //console.log('--------ebitMargePoints:' + ebitMargePoints);
+            //console.log('--------ekqPoints:' + ekqPoints);
+            //console.log('--------kgvNowPoints:' + kgvNowPoints);
+            //console.log('--------epsPoints:' + epsPoints);
+            //console.log('--------kgvAvgPoints:' + kgvAvgPoints);
+            //console.log('--------sumPoints:' + sumPoints);
+
                 var resultData =
                     {
-                        ekr: array[3]['Eigenkapitalrendite'],
-                        ebitMarge: array[3]['EBIT-Marge'],
-                        ekq: array[3]['Eigenkapitalquote'],
-                        kgvNow: array[3]['KGV'],
+                        ekr: ekr,
+                        ebitMarge: ebitMarge,
+                        ekq: ekq,
+                        kgvNow: kgvNow,
                         kgvAvg: kgvAverage,
-                        kgvYears: kgvArray.length
+                        kgvYears: kgvYears,
+                        eps: eps,
+                        ekrPoints: ekrPoints,
+                        ebitMargePoints: ebitMargePoints,
+                        ekqPoints: ekqPoints,
+                        kgvNowPoints: kgvNowPoints,
+                        kgvAvgPoints: kgvAvgPoints,
+                        epsPoints: epsPoints,
+                        sumPoints: sumPoints
                     };
 
                 resolve(resultData);

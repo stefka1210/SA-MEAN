@@ -30,7 +30,15 @@ var StockSchema   = new Schema({
         analystCount: { type: String },                                   // Anzahl der Analysten
         analystGrade: { type: String },                                   // Note der Analysten
         qrReaction: { type: String },                                     // Reaktion auf den letzten Quartalsbericht
-        earnRevision: { type: String }
+        earnRevision: { type: String },
+
+        ekrPoints: { type: String},
+        ebitMargePoints: { type: String},
+        ekqPoints: { type: String},
+        kgvNowPoints: { type: String},
+        kgvAvgPoints: { type: String},
+        epsPoints: { type: String},
+        sumPoints: { type: String}
     }]
 
 });
