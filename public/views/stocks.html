@@ -1,37 +1,59 @@
 <div id="stocks" class="content">
 	<div class="subMenu">
-		<div class="menuHead">Stocks per Indices</div>
+		<div class="menuHead">Stocks per Index</div>
 
 		<div class="indices">
-			<div class="menuItem"><a>ALL</a></div>
-			<div class="menuItem"><a>DAX</a></div>
-			<div class="menuItem"><a>MDAX</a></div>
-			<div class="menuItem"><a>TECDAX</a></div>
-			<div class="menuItem"><a>SDAX</a></div>
-			<div class="menuItem"><a>DOWJONES</a></div>
-			<div class="menuItem"><a>FTSE100</a></div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'all'}">
+				<a href="/stocks">ALL</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'dax'}">
+				<a href="/stocks/dax">DAX</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'mdax'}">
+				<a href="/stocks/mdax">MDAX</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'tecdax'}">
+				<a href="/stocks/tecdax">TECDAX</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'sdax'}">
+				<a href="/stocks/sdax">SDAX</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'smallcaps_de'}">
+				<a href="/stocks/smallcaps_de">SMALLCAPS-DE</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'dowjones'}">
+				<a href="/stocks/dowjones">DOWJONES</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'ftse100'}">
+				<a href="/stocks/ftse100">FTSE100</a>
+			</div>
 		</div>
 	</div>
 
 	<div class="main">
-
-		<div class="stock">
+		<!-- repeat for all stocks in the index-->
+		<div class="stock" ng-repeat="stock in stocks | orderBy: '-kpiScraps[0].sumPoints'">
 			<div class="pointWrap">
-				<div class="pointShape buy">
-					<div class="pointNumber">12</div>
+				<div class="pointShape"
+					ng-class="{
+						'buy': stock.kpiScraps[0].sumPoints > 4,
+						'hold': stock.kpiScraps[0].sumPoints <= 4,
+						'sell': stock.kpiScraps[0].sumPoints <= 2}"
+						>
+					<div class="pointNumber">{{stock.kpiScraps[0].sumPoints}}</div>
 					<div class="pointLabel">Pkt</div>
 				</div>
 			</div>
 			<div class="bodyWrap">
-				<div class="title">Volkswagen ST</div>
+				<div class="title">{{stock.name}}</div>
 				<div class="meta">
 					<div class="timeScraped">
 						<div class="icon"></div>
-						<div class="text">vor 22 Min</div>
+						<div class="text"></div>
 					</div>
 					<div class="watchlist">
 						<div class="icon"></div>
-						<div class="text">Watchlist 1</div>
+						<div class="text"></div>
 					</div>
 				</div>
 			</div>
@@ -40,7 +62,6 @@
 					<div class="icon"></div>
 				</div>
 			</div>
-
 		</div>
 
 	</div>

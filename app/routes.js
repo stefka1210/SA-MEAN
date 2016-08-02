@@ -4,7 +4,6 @@ var express			= require('express');
 var router 			= express.Router();    // get an instance of the express Router
 var Stock     		= require('./models/stock');
 var ScrapKpis    	= require('./scraper/scrapKpis');
-var Q				= require('q');
 
 module.exports = function(app) {
 
@@ -46,21 +45,23 @@ module.exports = function(app) {
 		});
 
     router.route('/scrapKpis')
-         //scrap all the stocks
+         //scrap the kpis
         .post(function(req, res, next) {
 
             console.log('scrapKpis...');
 
             Stock.find(function(err, stocks) {
                 if (err)
-                    res.send(err);
+                    res.send(err  + ' error 2');
 
 
 				function getKpis(index){
 					var stock = stocks[index];
 
 					if(index < stocks.length) {
-						console.log('getKpis ' + index);
+						console.log('getKpis for: ' + stock.kpiurl);
+						console.log('index: ' + index + '/ ' + stocks.length);
+
 						ScrapKpis(stock.kpiurl).then(function(result){
 							console.log(result);
 
@@ -73,105 +74,24 @@ module.exports = function(app) {
 								if(index == stocks.length)
 									res.send('scraper finished');
 									console.log('scraper finished');
-
 							});
 						}, function(error){
-							console.error(error);
+							console.error(error + ' error 1');
 						});
 					}
 				}
-
 				if(stocks && stocks.length > 0)
 					getKpis(0);
-
-
-
-                //for(var i= 0; i < stocks.length; i++) {
-                //    var stock = stocks[i];
-                //
-					//console.log(stock.name);
-
-
-
-
-
-                    //new Promise(
-                    //    // The resolver function is called with the ability to resolve or
-                    //    // reject the promise
-                    //    function(resolve, reject) {
-                    //        ScrapKpis(stock.kpiurl, function(result){
-                    //            resolve(result);
-						//		console.log('resolved!')
-                    //
-                    //        });
-                    //    })
-                    //
-						//.then(
-                    //    // Log the fulfillment value
-                    //    function(result) {
-						//	console.log(stock.name);
-                    //        stock.kpiScraps.push(result);
-                    //        stock.save(function (err) {
-                    //            if (err) return handleError(err);
-                    //            res.send(stock);
-                    //        });
-                    //    })
-                    //    .catch(
-                    //    // Log the rejection reason
-                    //    function(reason) {
-                    //        console.log('Handle rejected promise ('+reason+') here.');
-                    //    });
-
-                    //ScrapKpis(stocks[i].kpiurl, function(result){
-                    //
-                    //    console.log('after finished?');
-                    //    //stocks[i].kpiScraps.push(result);
-                    //    //stocks[i].save(function (err) {
-                    //    //    if (err) return handleError(err);
-                    //    //    res.send(stocks[i]);
-                    //    //});
-                    //});
-
-                    //var result = { ekr: '+0,80%', ebitMarge: '+13,78%', ekq: '+45,37%' };
-
-                //}
             });
-
         });
 
-    // New Try
-    router.route('/scrapKpisNew')
-        //scrap all the stocks
-        .post(function(req, res) {
-
-            Stock.find(function(err, stocks) {
-                if (err)
-                    res.send(err);
-
-				for (var i=0; i < stocks.length; i++) {
-
-					console.log(stocks[i].name);
-
-					ScrapKpis(stocks[i].kpiurl, function(result) {
-
-					}).then(function() {
-						console.log('success');
-					})
-
-						.catch(function() {
-							//error handling
-						})
+	router.route('/scrapRates')
+		//scrap the historic rates of the stock
+		.post(function(req, res, next) {
 
 
+		});
 
-
-				}
-
-
-
-            });
-
-        });
 
 	router.route('/find_name')
 	// find a stock by name (accessed at GET http://localhost:8080/api/find_name)
@@ -186,7 +106,6 @@ module.exports = function(app) {
 				//der letzte kpiScrap der Aktie
 				console.log(lastKpiScrap.kpiScraps[length-1]);
 				res.json(lastKpiScrap.kpiScraps[length-1]);
-
 			})
 		});
 
@@ -204,12 +123,13 @@ module.exports = function(app) {
 			//})
 
 			var query = Stock.find({'indexMembership': req.params.index});
-
+			console.log('----> Stocks für '+ req.params.index + ' gesendet');
 			query
                 .slice('kpiScraps', -1)
                 .exec(function (err, someValue) {
 					if (err) return next(err);
 					res.json(someValue);
+
 				});
 
 		});

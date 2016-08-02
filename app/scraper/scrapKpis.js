@@ -22,7 +22,7 @@ module.exports = function(url) {
                 })
             })(function(err, result) {
                 if(err){
-                    reject(err);
+                    reject(err  + ' error 3');
                     return;
                 }
 
@@ -36,7 +36,6 @@ module.exports = function(url) {
 
                     for(var j=0;j<columnTitles.length;j++){
                         var year = columnTitles[j].replace('e','').trim();
-
                         years.push(year);
                     }
                 }
@@ -60,7 +59,6 @@ module.exports = function(url) {
                                 kpisPerYear[year] = {};
 
                             kpisPerYear[year][kpi] = values[k] && values[k].trim();
-
                         }
                     }
                 }
@@ -81,8 +79,6 @@ module.exports = function(url) {
             for(var n = 0; n < kgvArray.length; n++) {
                 kgvSum += kgvArray[n];
             }
-
-            console.log(typeof kgvArray.length);
 
             kgvSum = kgvSum.toFixed(2);
 

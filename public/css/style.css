@@ -105,6 +105,7 @@ header {
     width: 200px;
     height: 44px;
     margin-right: 45px;
+    margin-top: 3px;
 }
 
 .mainMenu {
@@ -177,6 +178,7 @@ header {
 .main {
     display: flex;
     align-self: center;
+    flex-direction: column;
 }
 
 #stocks .stock {

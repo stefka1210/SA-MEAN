@@ -20,43 +20,22 @@
         <div class="menuHead">Stock Setting</div>
 
         <div class="indices">
-            <div class="menuItem"><a>add a stock</a></div>
-            <div class="menuItem"><a>Reportdates</a></div>
-            <div class="menuItem"><a>Scraper</a></div>
+            <div class="menuItem" ng-class="{active: $route.current.activetab == 'addastock'}">
+                <a href="/scraper/addastock" >add a stock</a>
+            </div>
+            <div class="menuItem" ng-class="{active: $route.current.activetab == 'scraper'}">
+                <a href="/scraper" >Scraper</a>
+            </div>
         </div>
     </div>
     <div class="main">
         <div class="formWrap">
             <div class="formHead">
-                <h2>Add a Stock</h2>
-                <p>Add a Stock to the Database</p>
+                <h2>Scraper</h2>
+                <p>Choose an index and scrap the kpis</p>
             </div>
-            <form name="addStockForm" ng-submit="submitForm()">
-                <div class="formGroup">
-                    <label>
-                        <span>Stockname</span>
-                    </label>
-                    <input type="text" name="stockname" class="" ng-model="stock_name">
-                </div>
-                <div class="formGroup">
-                    <label>
-                        <span>KPI-Url</span>
-                    </label>
-                    <input type="text" name="kpiurl" class="" ng-model="stock_kpiurl">
-                </div>
-                <div class="formGroup">
-                    <label>
-                        <span>Rates-Url</span>
-                    </label>
-                    <input type="text" name="ratesurl" class="" ng-model="stock_ratesurl">
-                </div>
-                <div class="formGroup">
-                    <label>
-                        <span>Index-Membership</span>
-                    </label>
-                    <input type="text" name="indexMembership" class="" ng-model="stock_indexMembership">
-                </div>
-                <button ng-click="postStock()">POST STOCK</button>
+            <form name="scrapForm" ng-submit="submitForm()">
+                <button ng-click="scrapStock('dax')">Scrap Stocks in DAX</button>
             </form>
         </div>
     </div>

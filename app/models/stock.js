@@ -38,7 +38,7 @@ var StockSchema   = new Schema({
         kgvNowPoints: { type: String},
         kgvAvgPoints: { type: String},
         epsPoints: { type: String},
-        sumPoints: { type: String}
+        sumPoints: { type: Number}
     }]
 
 });

@@ -6,6 +6,8 @@ angular.module('sampleApp', [
     'StocksService',
     'WatchlistsCtrl',
     'WatchlistsService',
+    'AddastockCtrl',
+    'AddastockService',
     'ScraperCtrl',
     'ScraperService',
     'CalendarCtrl',
