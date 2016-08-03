@@ -1,6 +1,12 @@
 angular.module('StocksCtrl', []).controller('StocksController', function($scope, $route, Stocks) {
 
 	$scope.$route = $route;
+
+	$scope.message = {
+   text: 'hello world!',
+   time: new Date()
+};
+
 	//$recomm = 'hoho';
 
 	//get the selected index

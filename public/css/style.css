@@ -252,10 +252,20 @@ header {
 }
 
 #stocks .timeScraped, #stocks .watchlist {
+    display: flex;
+    align-items: center;
     font-size: 12px;
+    line-height: 1em;
     color: #999;
-    font-family: Brandon-Bold;
+    font-family: Brandon-Medium;
 }
+
+#stocks .timeScraped .icon {
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    background: url("/img/iconClock.svg") no-repeat;
+},
 
 #stocks .watchlist {
     margin-left: 20px;

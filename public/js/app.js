@@ -11,5 +11,6 @@ angular.module('sampleApp', [
     'ScraperCtrl',
     'ScraperService',
     'CalendarCtrl',
-    'CalendarService'
+    'CalendarService',
+    'angularMoment'
 ]);
