@@ -95,6 +95,7 @@ header {
     height: 90px;
     background: #292A2D;
     position: fixed;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -183,12 +184,35 @@ header {
 
 #stocks .stock {
     width: 420px;
-    height: 82px;
+    min-height: 82px;
+    padding: 12px;
+    display: flex;
+    margin-bottom: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+#stocks .stock .stockLayer {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
     background: #292A2D;
-    padding: 16px;
-    display: flex;
-    margin-bottom: 10px;
+    transition: all 400ms;
+}
+#stocks .stock:hover {
+    z-index: 1;
+}
+
+#stocks .stock:hover .stockLayer {
+
+    left: -8px;
+    right: -8px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+    transition: all 400ms;
 }
 
 #stocks .stock .pointWrap {
@@ -219,7 +243,6 @@ header {
 #stocks .stock .pointNumber {
     font-family: Gotham-Cnd-Medium;
     font-size: 32px;
-    letter-spacing: 0.05em;
     display: flex;
     align-content: center;
     justify-content: center;
@@ -238,17 +261,25 @@ header {
 }
 
 #stocks .stock .bodyWrap {
-    margin: 0px 16px;
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #stocks .stock .title {
     font-size: 18px;
     text-transform: uppercase;
-    line-height: 32px;
+    line-height: 1.2em;
+    letter-spacing: 0.05em;
+}
+
+#stocks .stock:hover .title {
+    text-shadow: 0px 0px 8px #00ADE0;
 }
 
 #stocks .meta {
-    display: flex;
+    margin-top: 8px;
 }
 
 #stocks .timeScraped, #stocks .watchlist {

@@ -33,6 +33,7 @@
 	<div class="main">
 		<!-- repeat for all stocks in the index-->
 		<div class="stock" ng-repeat="stock in stocks | orderBy: '-kpiScraps[0].sumPoints'">
+			<div class="stockLayer"></div>
 			<div class="pointWrap">
 				<div class="pointShape"
 					ng-class="{
