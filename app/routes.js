@@ -44,23 +44,25 @@ module.exports = function(app) {
 			});
 		});
 
-    router.route('/scrapKpis')
+    router.route('/scrapKpis/:index')
          //scrap the kpis
         .post(function(req, res, next) {
 
-            console.log('scrapKpis...');
+            console.log('scrapKpis for: ' + req.params.index);
 
-            Stock.find(function(err, stocks) {
+			Stock.find({ 'indexMembership': req.params.index },   {} , function (err, stocksInIndex) {
+
+            // Stock.find(function(err, stocks) {
                 if (err)
                     res.send(err  + ' error 2');
 
 
 				function getKpis(index){
-					var stock = stocks[index];
+					var stock = stocksInIndex[index];
 
-					if(index < stocks.length) {
+					if(index < stocksInIndex.length) {
 						console.log('getKpis for: ' + stock.kpiurl);
-						console.log('index: ' + index + '/ ' + stocks.length);
+						console.log('index: ' + index + '/ ' + stocksInIndex.length);
 
 						ScrapKpis(stock.kpiurl).then(function(result){
 							console.log(result);
@@ -69,18 +71,20 @@ module.exports = function(app) {
 							stock.save(function (err) {
 								if (err) return handleError(err);
 									//res.send(err);
-								if(index < stocks.length)
+								if(index < stocksInIndex.length)
 									getKpis(++index);
-								if(index == stocks.length)
+								if(index == stocksInIndex.length)
 									res.send('scraper finished');
-									console.log('scraper finished');
+									console.log('scraper finished for: ' + stock.name);
 							});
 						}, function(error){
 							console.error(error + ' error 1');
 						});
+					} else {
+						console.log('indexscraping finished for: ' + req.params.index);
 					}
 				}
-				if(stocks && stocks.length > 0)
+				if(stocksInIndex && stocksInIndex.length > 0)
 					getKpis(0);
             });
         });

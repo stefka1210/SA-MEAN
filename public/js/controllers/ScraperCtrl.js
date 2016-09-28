@@ -3,11 +3,11 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
 	$scope.$route = $route;
 
 // TODO: index übergeben, um jeden index getrennt scrappen zu können
-	$scope.scrapStock = function(){
+	$scope.scrapStock = function(index){
 		$http({
 			method: 'Post',
-			url: 'http://localhost:8082/api/scrapKpis',
-			body : {'Content-Type': 'application/x-www-form-urlencoded'}
+			url: 'http://localhost:8082/api/scrapKpis/' + index,
+			body : {'Content-Type': 'application/x-www-form-urlencoded'},
 		}).then(
 			function(response) {
 				console.log(response.data.message);

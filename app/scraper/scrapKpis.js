@@ -7,6 +7,8 @@ var x               = Xray();
 
 module.exports = function(url) {
 
+    //console.log('scrap url: ' + url);
+
     return new Promise(function(resolve, reject) {
         x(url,
             {
@@ -72,7 +74,9 @@ module.exports = function(url) {
 
             // falls kgv nicht '-' ist (also NUMBER), push ihn in den array
             for (var m = 0; m < 5; m++) {
-                if(array[m]['KGV'] != '-')
+                if(array[m] === undefined)
+                    console.log(array[m]);
+                if(array[m] && array[m]['KGV'] != '-')
                     kgvArray.push(parseFloat(array[m]['KGV'].replace(',','.').replace(' ','')));
             }
 
