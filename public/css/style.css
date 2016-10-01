@@ -198,6 +198,23 @@ header {
     position: relative;
 }
 
+#stocks .sorting {
+    display: flex;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#stocks .sorting li:not(:last-child) {
+    margin-right: 20px;
+}
+
+#stocks .sorting li a, #stocks .sorting li a:hover {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
 #stocks .stock .stockLayer {
     position: absolute;
     z-index: -1;

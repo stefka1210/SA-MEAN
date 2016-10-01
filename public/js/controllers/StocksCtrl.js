@@ -2,22 +2,14 @@ angular.module('StocksCtrl', []).controller('StocksController', function($scope,
 
 	$scope.$route = $route;
 
-	$scope.message = {
-   text: 'hello world!',
-   time: new Date()
-};
-
-	//$recomm = 'hoho';
+	$scope.sortType     = '-kpiScraps[0].sumPoints'; // set the default sort type
+	$scope.sortReverse  = false;  // set the default sort order
 
 	//get the selected index
 	var index = $route.current.activesubtab;
 
 	Stocks.get(index)
 		.success(function(data) {
-			//console.log(index + 'huhu');
 			$scope.stocks = data;
-
-			//data.kpiScraps[0].sumPoints
-
 		});
 });

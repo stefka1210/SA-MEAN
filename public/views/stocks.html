@@ -31,8 +31,17 @@
 	</div>
 
 	<div class="main">
+
+		<ul class="sorting">
+			<li><a href="#" ng-click="sortType = '-kpiScraps[0].sumPoints'; sortReverse = !sortReverse">points</a></li>
+			<li><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">name</a></li>
+		</ul>
+
 		<!-- repeat for all stocks in the index-->
-		<div class="stock" ng-repeat="stock in stocks | orderBy: '-kpiScraps[0].sumPoints'">
+		<!-- <div class="stock" ng-repeat="stock in stocks | orderBy: '-kpiScraps[0].sumPoints'"> -->
+
+		<div class="stock" ng-repeat="stock in stocks | orderBy:sortType:sortReverse">
+
 			<div class="stockLayer"></div>
 			<div class="pointWrap">
 				<div class="pointShape"
