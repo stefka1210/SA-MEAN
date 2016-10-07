@@ -239,6 +239,13 @@ header {
     background: #292A2D;
     transition: all 400ms;
 }
+
+#stocks .stock.active .stockLayer,
+#stocks .stock.active:hover .stockLayer {
+    background: #3c3d40;
+    transition: all 400ms;
+}
+
 #stocks .stock:hover {
     z-index: 1;
 }

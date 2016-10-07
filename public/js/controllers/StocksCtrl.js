@@ -13,6 +13,8 @@ angular.module('StocksCtrl', []).controller('StocksController', function($scope,
 			$scope.stocks = data;
 		});
 
+		
+
 	$scope.open = function(stock){
         if ($scope.isOpen(stock)){
             $scope.opened = undefined;
