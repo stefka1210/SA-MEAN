@@ -30,7 +30,7 @@
 		</div>
 	</div>
 
-	<div class="main">
+	<div class="list">
 
 		<ul class="sorting">
 			<li><a href="#" ng-click="sortType = '-kpiScraps[0].sumPoints'; sortReverse = !sortReverse">points</a></li>
@@ -40,8 +40,7 @@
 		<!-- repeat for all stocks in the index-->
 		<!-- <div class="stock" ng-repeat="stock in stocks | orderBy: '-kpiScraps[0].sumPoints'"> -->
 
-		<div class="stock" ng-repeat="stock in stocks | orderBy:sortType:sortReverse">
-
+		<div class="stock" ng-repeat="stock in stocks | orderBy:sortType:sortReverse" ng-click="open(stock)">
 			<div class="stockLayer"></div>
 			<div class="pointWrap">
 				<div class="pointShape"
@@ -56,6 +55,7 @@
 			</div>
 			<div class="bodyWrap">
 				<div class="title">{{stock.name}}</div>
+				<!-- <div class="title">{{stock._id}}</div> -->
 				<div class="meta">
 					<div class="timeScraped">
 						<div class="icon"></div>
@@ -75,6 +75,19 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
+	<div class="detailWrap">
+		<div class="stockDetail">
+
+			<ng-switch on="anyStockOpen()">
+		     <div ng-switch-when="true">
+		             {{opened.name}}
+					 {{opened.kpiurl}}
+		         <a ng-click="close()">close</a>
+		     </div>
+		    </ng-switch>
+
+		</div>
+	</div>
+
 </div>

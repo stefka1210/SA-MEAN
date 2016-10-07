@@ -12,4 +12,24 @@ angular.module('StocksCtrl', []).controller('StocksController', function($scope,
 		.success(function(data) {
 			$scope.stocks = data;
 		});
+
+	$scope.open = function(stock){
+        if ($scope.isOpen(stock)){
+            $scope.opened = undefined;
+        } else {
+            $scope.opened = stock;
+        }
+    };
+
+    $scope.isOpen = function(stock){
+        return $scope.opened === stock;
+    };
+
+    $scope.anyStockOpen = function() {
+        return $scope.opened !== undefined;
+    };
+
+    $scope.close = function() {
+        $scope.opened = undefined;
+    };
 });
