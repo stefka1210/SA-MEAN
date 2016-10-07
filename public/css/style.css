@@ -202,17 +202,30 @@ header {
     display: flex;
     height: 26px;
     margin: 0;
-    padding: 0;
+    padding: 0px 0px 0px 12px;
     list-style-type: none;
 }
 
 #stocks .sorting li:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 16px;
 }
 
-#stocks .sorting li a, #stocks .sorting li a:hover {
+#stocks .sorting li a {
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+}
+
+#stocks .sorting li a:hover {
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #00ADE0;
+}
+
+#stocks .sorting li a:active {
+    color: #00ADE0;
 }
 
 #stocks .stock .stockLayer {

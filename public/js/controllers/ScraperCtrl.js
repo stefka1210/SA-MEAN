@@ -24,4 +24,16 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
 		//});
 	};
 
+	// historic Rates Scraping
+	$scope.scrapRates = function(){
+		$http({
+			method: 'Post',
+			url: 'http://localhost:8082/api/scrapRates/',
+			body : {'Content-Type': 'application/x-www-form-urlencoded'},
+		}).then(
+			function(response) {
+				console.log(response.data.message);
+			});
+	};
+
 });

@@ -4,6 +4,7 @@ var express			= require('express');
 var router 			= express.Router();    // get an instance of the express Router
 var Stock     		= require('./models/stock');
 var ScrapKpis    	= require('./scraper/scrapKpis');
+var ScrapHistoric    	= require('./scraper/scrapHistoric');
 
 module.exports = function(app) {
 
@@ -92,9 +93,16 @@ module.exports = function(app) {
 	router.route('/scrapRates')
 		//scrap the historic rates of the stock
 		.post(function(req, res, next) {
+			var historicUrl = 'http://www.onvista.de/onvista/times+sales/popup/historische-kurse/?notationId=161766&dateStart=06.10.2011&interval=M1&assetName=huhu&exchange=haha';
+			ScrapHistoric(historicUrl).then(function(result){
+				console.log("outerResult: " + result);
+
+				});
+			}, function(error){
+				console.error(error + ' outererror');
+			});
 
 
-		});
 
 
 	router.route('/find_name')
