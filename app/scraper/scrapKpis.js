@@ -93,10 +93,10 @@ module.exports = function(url) {
 
 
             //Umwandeln in NUMBER für die Punktberechnung
-            var ekr = parseFloat(array[2]['Eigenkapitalrendite'].replace(',','.').replace(' ',''));
-            var ebitMarge = parseFloat(array[2]['EBIT-Marge'].replace(',','.').replace(' ',''));
+            var ekr = parseFloat(array[3]['Eigenkapitalrendite'].replace(',','.').replace(' ',''));
+            var ebitMarge = parseFloat(array[3]['EBIT-Marge'].replace(',','.').replace(' ',''));
             var ekq = parseFloat(array[2]['Eigenkapitalquote'].replace(',','.').replace(' ',''));
-            var kgvNow = parseFloat(array[3]['KGV'].replace(',','.').replace(' ',''));
+            var kgvNow = parseFloat(array[4]['KGV'].replace(',','.').replace(' ',''));
             var kgvYears = kgvArray.length;
             var eps = parseFloat(array[5]['Gewinnwachstum'].replace(',','.').replace(' ',''));
 
@@ -156,7 +156,7 @@ module.exports = function(url) {
 
                 resolve(resultData);
 
-                console.log('scrapstep finished')
+                console.log('scrapstep finished');
 
         });
     });

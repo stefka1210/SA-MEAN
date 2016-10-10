@@ -30,16 +30,17 @@
 		</div>
 	</div>
 
-	<div class="list">
+	<div class="list" ng-class="{active: !isOpen(stock)}">
 
 		<ul class="sorting">
 			<li><a href="#" ng-click="sortType = '-kpiScraps[0].sumPoints'; sortReverse = !sortReverse">points</a></li>
 			<li><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">name</a></li>
 		</ul>
 
+
 		<!-- repeat for all stocks in the index-->
 		<!-- <div class="stock" ng-repeat="stock in stocks | orderBy: '-kpiScraps[0].sumPoints'"> -->
-
+<div class="scrollContainer">
 		<div class="stock" ng-repeat="stock in stocks | orderBy:sortType:sortReverse" ng-click="open(stock)" ng-class="{active: isOpen(stock)}" >
 			<div class="stockLayer"></div>
 			<div class="pointWrap">
@@ -75,19 +76,87 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="detailWrap">
-		<div class="stockDetail">
-
-			<ng-switch on="anyStockOpen()">
-		     <div ng-switch-when="true">
-		             {{opened.name}}
-					 {{opened.kpiurl}}
-		         <a ng-click="close()">close</a>
-		     </div>
-		    </ng-switch>
-
 		</div>
 	</div>
-
+	<div class="stockDetailWrap">
+		<ng-switch on="anyStockOpen()">
+			<div class="stockDetail" ng-switch-when="true">
+				<div class="detailHead">
+					<div class="title">{{opened.name}}</div>
+					<div class="closeBtn" ng-click="close()">X</div>
+				</div>
+				<div class="kpiList">
+					<div class="kpiWrap">
+						<div class="kpiTitle">Eigenkapitalrendite</div>
+						<div class="kpiValue">{{opened.kpiScraps[0].ekr}}%</div>
+						<div class="kpiPoint" ng-class="{
+							'positive': opened.kpiScraps[0].ekrPoints == 1,
+							'neutral': opened.kpiScraps[0].ekrPoints == 0,
+							'negative': opened.kpiScraps[0].ekrPoints == -1}">
+								{{opened.kpiScraps[0].ekrPoints}}
+						</div>
+					</div>
+					<div class="kpiWrap">
+						<div class="kpiTitle">EBIT-Marge</div>
+						<div class="kpiValue">{{opened.kpiScraps[0].ebitMarge}}%</div>
+						<div class="kpiPoint" ng-class="{
+							'positive': opened.kpiScraps[0].ebitMargePoints == 1,
+							'neutral': opened.kpiScraps[0].ebitMargePoints == 0,
+							'negative': opened.kpiScraps[0].ebitMargePoints == -1}">
+							{{opened.kpiScraps[0].ebitMargePoints}}
+						</div>
+					</div>
+					<div class="kpiWrap">
+						<div class="kpiTitle">Eigenkapitalquote</div>
+						<div class="kpiValue">{{opened.kpiScraps[0].ekq}}%</div>
+						<div class="kpiPoint" ng-class="{
+							'positive': opened.kpiScraps[0].ekqPoints == 1,
+							'neutral': opened.kpiScraps[0].ekqPoints == 0,
+							'negative': opened.kpiScraps[0].ekqPoints == -1}">
+							{{opened.kpiScraps[0].ekqPoints}}
+						</div>
+					</div>
+					<div class="kpiWrap">
+						<div class="kpiTitle">KGV</div>
+						<div class="kpiValue">{{opened.kpiScraps[0].kgvNow}}</div>
+						<div class="kpiPoint" ng-class="{
+							'positive': opened.kpiScraps[0].kgvNowPoints == 1,
+							'neutral': opened.kpiScraps[0].kgvNowPoints == 0,
+							'negative': opened.kpiScraps[0].kgvNowPoints == -1}">
+							{{opened.kpiScraps[0].kgvNowPoints}}
+						</div>
+					</div>
+					<div class="kpiWrap">
+						<div class="kpiTitle">KGV &Oslash; {{opened.kpiScraps[0].kgvYears}} Years</div>
+						<div class="kpiValue">{{opened.kpiScraps[0].kgvAvg}}</div>
+						<div class="kpiPoint" ng-class="{
+							'positive': opened.kpiScraps[0].kgvAvgPoints == 1,
+							'neutral': opened.kpiScraps[0].kgvAvgPoints == 0,
+							'negative': opened.kpiScraps[0].kgvAvgPoints == -1}">
+							{{opened.kpiScraps[0].kgvAvgPoints}}
+						</div>
+					</div>
+					<div class="kpiWrap">
+						<div class="kpiTitle">EPS</div>
+						<div class="kpiValue">{{opened.kpiScraps[0].eps}}%</div>
+						<div class="kpiPoint" ng-class="{
+							'positive': opened.kpiScraps[0].epsPoints == 1,
+							'neutral': opened.kpiScraps[0].epsPoints == 0,
+							'negative': opened.kpiScraps[0].epsPoints == -1}">
+							{{opened.kpiScraps[0].epsPoints}}
+						</div>
+					</div>
+					<!-- <div class="kpiWrap">
+						<div>sumPoints: {{opened.kpiScraps[0].sumPoints}}</div>
+					</div> -->
+				</div>
+				<div class="stockUrls">
+					<div class="urlTitle">KPI-Url</div>
+					<div class="url">
+						<a target="_blank" href="{{opened.kpiurl}}">{{opened.kpiurl}}</a>
+					</div>
+				</div>
+			</div>
+	    </ng-switch>
+	</div>
 </div>
