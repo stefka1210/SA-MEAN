@@ -156,6 +156,28 @@
 						<a target="_blank" href="{{opened.kpiurl}}">{{opened.kpiurl}}</a>
 					</div>
 				</div>
+				<div class="stockUrls">
+					<div class="urlTitle">Rates-Url</div>
+					<div class="url">
+						<a target="_blank" href="{{opened.ratesurl}}">{{opened.ratesurl}}</a>
+					</div>
+				</div>
+				<form id="editStock" name="editStockForm" ng-submit="submitForm()">
+	                <div class="formGroup">
+	                    <label>
+	                        <span>KPI-Url</span>
+	                    </label>
+	                    <input type="text" name="kpiurl" class="" ng-model="opened.kpiurl">
+	                </div>
+	                <div class="formGroup">
+	                    <label>
+	                        <span>Rates-Url</span>
+	                    </label>
+	                    <input type="text" name="ratesurl" class="" ng-model="opened.ratesurl">
+	                </div>
+
+	                <button ng-click="editStock(opened)">SAVE STOCK</button>
+	            </form>
 			</div>
 	    </ng-switch>
 	</div>

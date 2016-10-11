@@ -472,6 +472,7 @@ form button {
     align-items: center;
     font-size: 12px;
     margin-right: 12px;
+    min-width: 50px;
     line-height: 1em;
     color: #999;
     font-family: Brandon-Medium;
@@ -487,5 +488,11 @@ form button {
     color: white;
     text-shadow: 0px 0px 12px #00ADE0;
     transition: all 200ms;
+}
+
+form#editStock {
+    margin-top: 2px;
+    padding: 12px;
+    background: #292A2D;
 }
 /* END StockDetailView */

@@ -90,9 +90,32 @@ module.exports = function(app) {
             });
         });
 
+	router.route('/editStock/:stock_id')
+		//edit a Stock
+		.put(function(req, res) {
+			Stock.findById(req.params.stock_id, function(err, stock) {
+
+               if (err)
+                   res.send(err);
+
+    			// update the stock info
+			   stock.kpiurl = req.body.kpiurl;
+			   stock.ratesurl = req.body.ratesurl;
+
+               // save the stock
+               stock.save(function(err) {
+                   if (err)
+                       res.send(err);
+
+                   res.json({ message: 'Stock updated!' });
+               });
+
+           });
+		});
+
 	router.route('/scrapRates')
 		//scrap the historic rates of the stock
-		.post(function(req, res, next) {
+		.put(function(req, res, next) {
 			var historicUrl = 'http://www.onvista.de/onvista/times+sales/popup/historische-kurse/?notationId=161766&dateStart=06.10.2011&interval=M1&assetName=huhu&exchange=haha';
 			ScrapHistoric(historicUrl).then(function(result){
 				console.log("outerResult: " + result);
