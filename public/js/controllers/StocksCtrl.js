@@ -50,16 +50,6 @@ angular.module('StocksCtrl', []).controller('StocksController', function($scope,
             function(response) {
                 console.log(response.data.message)
         });
-            //.success(function(data) {
-            //    //if (data.errors) {
-            //    //    // Showing errors.
-            //    //    //$scope.errorName = data.errors.name;
-            //    //    //$scope.errorUserName = data.errors.username;
-            //    //    //$scope.errorEmail = data.errors.email;
-            //    //} else {
-            //    //    //$scope.message = data.message;
-            //    //}
-            //});
     };
 
 
