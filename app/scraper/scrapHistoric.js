@@ -18,8 +18,8 @@ module.exports = function(url) {
     return new Promise(function(resolve, reject) {
         x(url,
             {
-                tables: x('article.TIMESANDSALES', {
-                    contents: x('tr', [{
+                table: x('article.TIMESANDSALES', {
+                    content: x('tr', [{
                         // dates: ['time@datetime'],
                         date: 'time@datetime',
                         // rates: ['td.ZAHL']
@@ -34,11 +34,11 @@ module.exports = function(url) {
                     reject(err  + ' error 3');
                     return;
                 }
-                var tables = result.tables;
-                var contents = tables.contents;
+                var table = result.table;
+                var content = table.content;
 
-                console.log(result.tables.contents);
-                //resolve(result.tables.contents);
+                console.log( result.table);
+                //resolve(result.tables.content);
         });
     });
 };
