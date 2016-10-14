@@ -39,7 +39,18 @@ var StockSchema   = new Schema({
         kgvAvgPoints: { type: String},
         epsPoints: { type: String},
         sumPoints: { type: Number}
-    }]
+    }],
+
+    rates: {
+        rateDate: {
+                date: {type: String},
+                start: {type: String},
+                high: {type: String},
+                low: {type: String},
+                end: {type: String},
+                volume: {type: String},
+        }
+    }
 
 });
 

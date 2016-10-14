@@ -37,8 +37,8 @@ module.exports = function(url) {
                 var table = result.table;
                 var content = table.content;
 
-                console.log( result.table);
-                //resolve(result.tables.content);
+                //console.log(typeof result.table.content);
+                resolve(result.table.content);
         });
     });
 };

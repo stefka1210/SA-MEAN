@@ -68,7 +68,7 @@ button {
     text-transform: uppercase;
     transition: all 400ms;
     font-family: Brandon-Bold, Helvetica, sans-serif;
-
+    cursor: pointer;
 }
 
 label {
