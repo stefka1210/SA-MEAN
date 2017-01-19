@@ -45,17 +45,41 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			activetab: 'stocks',
 			activesubtab: 'smallcaps_de'
 		})
+		.when('/stocks/euro-stoxx-600', {
+			templateUrl: 'views/stocks.html',
+			controller: 'StocksController',
+			activetab: 'stocks',
+			activesubtab: 'euro-stoxx-600'
+		})
 		.when('/stocks/dowjones', {
 			templateUrl: 'views/stocks.html',
 			controller: 'StocksController',
 			activetab: 'stocks',
 			activesubtab: 'dowjones'
 		})
-		.when('/stocks/ftse100', {
+		.when('/stocks/nasdaq', {
 			templateUrl: 'views/stocks.html',
 			controller: 'StocksController',
 			activetab: 'stocks',
-			activesubtab: 'ftse100'
+			activesubtab: 'nasdaq'
+		})
+		.when('/stocks/sp-500', {
+			templateUrl: 'views/stocks.html',
+			controller: 'StocksController',
+			activetab: 'stocks',
+			activesubtab: 'sp-500'
+		})
+		.when('/stocks/smi', {
+			templateUrl: 'views/stocks.html',
+			controller: 'StocksController',
+			activetab: 'stocks',
+			activesubtab: 'smi'
+		})
+		.when('/stocks/atx', {
+			templateUrl: 'views/stocks.html',
+			controller: 'StocksController',
+			activetab: 'stocks',
+			activesubtab: 'atx'
 		})
 		.when('/watchlists', {
 			templateUrl: 'views/watchlists.html',

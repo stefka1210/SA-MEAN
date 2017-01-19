@@ -33,13 +33,17 @@ module.exports = function(url) {
                 var contents = tables.contents;
 
                 var years = [];
-                for(var i=0;i<1/*headers.length*/;i++){
-                    var columnTitles = headers[i].columnTitles;
+                try {
+                    for(var i=0;i<1/*headers.length*/;i++){
+                        var columnTitles = headers[i].columnTitles;
 
-                    for(var j=0;j<columnTitles.length;j++){
-                        var year = columnTitles[j].replace('e','').trim();
-                        years.push(year);
+                        for(var j=0;j<columnTitles.length;j++){
+                            var year = columnTitles[j].replace('e','').trim();
+                            years.push(year);
+                        }
                     }
+                } catch (e) {
+                    console.log(e);
                 }
 
                 var kpisPerYear = {};
@@ -93,12 +97,39 @@ module.exports = function(url) {
 
 
             //Umwandeln in NUMBER für die Punktberechnung
-            var ekr = parseFloat(array[3]['Eigenkapitalrendite'].replace(',','.').replace(' ',''));
-            var ebitMarge = parseFloat(array[3]['EBIT-Marge'].replace(',','.').replace(' ',''));
-            var ekq = parseFloat(array[2]['Eigenkapitalquote'].replace(',','.').replace(' ',''));
-            var kgvNow = parseFloat(array[4]['KGV'].replace(',','.').replace(' ',''));
-            var kgvYears = kgvArray.length;
-            var eps = parseFloat(array[5]['Gewinnwachstum'].replace(',','.').replace(' ',''));
+            try {
+                var ekr = parseFloat(array[3]['Eigenkapitalrendite'].replace(',','.').replace(' ',''));
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                var ebitMarge = parseFloat(array[3]['EBIT-Marge'].replace(',','.').replace(' ',''));
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                var ekq = parseFloat(array[2]['Eigenkapitalquote'].replace(',','.').replace(' ',''));
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                var kgvNow = parseFloat(array[4]['KGV'].replace(',','.').replace(' ',''));
+            } catch (e) {
+                console.log(e);
+            }
+            try {
+                var kgvYears = kgvArray.length;
+            } catch (e) {
+                console.log(e);
+            }
+            try {
+                var eps = parseFloat(array[5]['Gewinnwachstum'].replace(',','.').replace(' ',''));
+            } catch (e) {
+                console.log(e);
+            }
 
             //calculate Points for Eigenkapitalrendite - ekr, reward für kgvpoints, quantity und minQuantity für kgvAverage
             function calcPoints(reward, top, bottom, value, quantity, minQuantity) {

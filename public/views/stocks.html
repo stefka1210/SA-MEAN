@@ -1,6 +1,6 @@
 <div id="stocks" class="content">
 	<div class="subMenu">
-		<div class="menuHead">Stocks per Index</div>
+		<div class="menuHead">Indexes</div>
 
 		<div class="indices">
 			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'all'}">
@@ -21,11 +21,23 @@
 			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'smallcaps_de'}">
 				<a href="/stocks/smallcaps_de">SMALLCAPS-DE</a>
 			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'euro-stoxx-600'}">
+				<a href="/stocks/euro-stoxx-600">EURO STOXX 600</a>
+			</div>
 			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'dowjones'}">
 				<a href="/stocks/dowjones">DOWJONES</a>
 			</div>
 			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'nasdaq'}">
-				<a href="/stocks/ftse100">NASDAQ</a>
+				<a href="/stocks/nasdaq">NASDAQ</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'sp-500'}">
+				<a href="/stocks/sp-500">s&amp;p 500</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'smi'}">
+				<a href="/stocks/smi">smi</a>
+			</div>
+			<div class="menuItem" ng-class="{active: $route.current.activesubtab == 'atx'}">
+				<a href="/stocks/atx">atx</a>
 			</div>
 		</div>
 	</div>
@@ -175,7 +187,12 @@
 	                    </label>
 	                    <input type="text" name="ratesurl" class="" ng-model="opened.ratesurl">
 	                </div>
-
+					<div class="formGroup">
+	                    <label>
+	                        <span>Index-Membership</span>
+	                    </label>
+	                    <input type="text" name="indexMembership" class="" ng-model="opened.indexMembership">
+	                </div>
 	                <button ng-click="editStock(opened)">SAVE STOCK</button>
 	            </form>
 			</div>
