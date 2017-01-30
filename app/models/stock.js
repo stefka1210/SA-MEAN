@@ -9,7 +9,8 @@ var Schema       = mongoose.Schema;
 var StockSchema   = new Schema({
     name: String,
     kpiurl: String,                                         // url für die Kennzahlen - kpis
-    ratesurl: String,                                       // url für die historischen Kurse - rates
+    ratesurl: String,
+    notation: String,                                  // url für die historischen Kurse - rates
     indexMembership: { type : Array , "default": [] },     // array von den Indices in welche die Aktie gelistet ist
     watchlistMembership: { type : Array , "default": [] }, // array von den watchlists in welche die Aktie steht
     lastQR: Date,                                           // Zeitpunkt des letzten Quartalsberichts
@@ -21,7 +22,7 @@ var StockSchema   = new Schema({
         ebitMarge: { type: String },                                      // EBIT-Marge
         ekq: { type: String },                                            // Eigenkapitalquote
         kgvNow: { type: String },                                         // aktuelles KGV
-        kgvAvg: { type: String },                                         // Kgv-Jahresdurchnitt
+        kgvAvg: { type: String },                                         // KGV-Jahresdurchnitt
         kgvYears: { type: String },                                       // Anzahl der vergangenen KGVs die den Durchschnitt (kgvAvg) bilden
         eps: { type: String },                                            // Gewinnwachstum
         priceSixMonth: { type: String },                                  // Kurs vor 6 Monaten
@@ -40,17 +41,16 @@ var StockSchema   = new Schema({
         epsPoints: { type: String},
         sumPoints: { type: Number}
     }],
-
-    rates: {
-        rateDate: {
-                date: {type: String},
-                start: {type: String},
-                high: {type: String},
-                low: {type: String},
-                end: {type: String},
-                volume: {type: String},
+    rates: [{
+        rate: {
+            date: {type: String},
+            start: {type: String},
+            high: {type: String},
+            low: {type: String},
+            end: {type: String},
+            volume: {type: String}
         }
-    }
+    }]
 
 });
 

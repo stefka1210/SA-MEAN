@@ -4,6 +4,7 @@ var express			= require('express');
 var router 			= express.Router();    // get an instance of the express Router
 var Stock     		= require('./models/stock');
 var ScrapKpis    	= require('./scraper/scrapKpis');
+var ScrapNotation    	= require('./scraper/scrapNotation');
 var ScrapHistoric    	= require('./scraper/scrapHistoric');
 
 module.exports = function(app) {
@@ -52,22 +53,16 @@ module.exports = function(app) {
             console.log('scrapKpis for: ' + req.params.index);
 
 			Stock.find({ 'indexMembership': req.params.index },   {} , function (err, stocksInIndex) {
-
             // Stock.find(function(err, stocks) {
                 if (err)
                     res.send(err  + ' error 2');
-
-
 				function getKpis(index){
 					var stock = stocksInIndex[index];
-
 					if(index < stocksInIndex.length) {
 						console.log('getKpis for: ' + stock.kpiurl);
 						console.log('index: ' + index + '/ ' + stocksInIndex.length);
-
 						ScrapKpis(stock.kpiurl).then(function(result){
 							console.log(result);
-
 							stock.kpiScraps.push(result);
 							stock.save(function (err) {
 								if (err) return handleError(err);
@@ -90,14 +85,54 @@ module.exports = function(app) {
             });
         });
 
+		router.route('/scrapNotation/:index')
+	         //scrap the kpis
+	        .post(function(req, res, next) {
+	            console.log('Scrap notation for: ' + req.params.index);
+				Stock.find({ 'indexMembership': req.params.index },   {} , function (err, stocksInIndex) {
+
+	            // Stock.find(function(err, stocks) {
+	                if (err)
+	                    res.send(err  + ' error 2 notation');
+
+					function getNotations(index){
+						var stock = stocksInIndex[index];
+
+						if(index < stocksInIndex.length) {
+							console.log('getNotation for: ' + stock.kpiurl);
+							console.log('index: ' + index + '/ ' + stocksInIndex.length);
+
+							ScrapNotation(stock.kpiurl).then(function(result){
+								console.log(result);
+
+								stock.notation = result;
+								stock.save(function (err) {
+									if (err) return handleError(err);
+										// res.send(err);
+									if(index < stocksInIndex.length)
+										getNotations(++index);
+									if(index == stocksInIndex.length)
+										res.send('Notationscraper finished');
+										console.log('Notationscraper finished for: ' + stock.name);
+								});
+							}, function(error){
+								console.error(error + ' error 1');
+							});
+						} else {
+							console.log('Notationscraping finished for: ' + req.params.index);
+						}
+					}
+					if(stocksInIndex && stocksInIndex.length > 0)
+						getNotations(0);
+	            });
+	        });
+
 	router.route('/editStock/:stock_id')
 		//edit a Stock
 		.put(function(req, res) {
 			Stock.findById(req.params.stock_id, function(err, stock) {
-
                if (err)
                    res.send(err);
-
     			// update the stock info
 			   stock.kpiurl = req.body.kpiurl;
 			   stock.ratesurl = req.body.ratesurl;
@@ -106,33 +141,61 @@ module.exports = function(app) {
                stock.save(function(err) {
                    if (err)
                        res.send(err);
-
                    res.json({ message: 'Stock updated!' });
                });
-
            });
 		});
 
-	router.route('/scrapRates')
+	// router.route('/scrapRates')
+	// 	//scrap the historic rates of the stock
+	// 	.post(function(req, res, next) {
+	// 		var historicUrl = 'http://www.onvista.de/onvista/times+sales/popup/historische-kurse/?notationId=161766&dateStart=06.10.2011&interval=M1&assetName=huhu&exchange=haha';
+	// 		ScrapHistoric(historicUrl).then(function(result){
+	// 			console.log("outerResult: " + result);
+	// 			});
+	// 		}, function(error){
+	// 			console.error(error + ' outererror');
+	// 		});
+
+	router.route('/scrapRates/:index')
 		//scrap the historic rates of the stock
 		.post(function(req, res, next) {
-			var historicUrl = 'http://www.onvista.de/onvista/times+sales/popup/historische-kurse/?notationId=161766&dateStart=06.10.2011&interval=M1&assetName=huhu&exchange=haha';
-			ScrapHistoric(historicUrl).then(function(result){
-				console.log("outerResult: " + result);
+			console.log('scrapRates for: ' + req.params.index);
 
+			Stock.find({ 'indexMembership': req.params.index },   {} , function (err, stocksInIndex) {
+			// Stock.find(function(err, stocks) {
+				if (err)
+					res.send(err  + ' error 2');
+				function getRates(index){
+					var stock = stocksInIndex[index];
+					if(index < stocksInIndex.length) {
+						console.log('getRates for: ' + stock.ratesurl);
+						console.log('index: ' + index + '/ ' + stocksInIndex.length);
+						ScrapHistoric(stock.ratesurl).then(function(result){
+							console.log("outerResult: " + result);
+							stock.rates = stock.rates.concat(result); // checken ob datum schon vorhanden _.find(stock.rates, {date: date})
+							stock.save(function (err) {
+								if (err) return handleError(err);
+									//res.send(err);
+								if(index < stocksInIndex.length)
+									getRates(++index);
+								if(index == stocksInIndex.length)
+									res.send('scraper finished');
+									console.log('scraper finished for: ' + stock.name);
+							});
+						}, function(error){
+							console.error(error + ' outererror');
+						});
+					}
+				}
+				if(stocksInIndex && stocksInIndex.length > 0)
+					getRates(0);
 				});
-			}, function(error){
-				console.error(error + ' outererror');
 			});
-
-
-
 
 	router.route('/find_name')
 	// find a stock by name (accessed at GET http://localhost:8080/api/find_name)
 		.get(function(req, res) {
-
-
 			Stock.findOne({ 'name': 'Siemens' },   {} , function (err, lastKpiScrap) {
 				if (err) return handleError(err);
 
@@ -173,14 +236,10 @@ module.exports = function(app) {
 // all of our routes will be prefixed with /api
 	app.use('/api', router);
 
-
 	//test
 	app.post('/scraper', function (req, res, next) {
 		console.log('Accessing the secret section ...');
-
 		res.json({ message: 'Scraper(Server) ausgelöst' });
-
-
 		next(); // pass control to the next handler
 	});
 
@@ -189,5 +248,4 @@ module.exports = function(app) {
 	app.get('*', function(req, res) {
 		res.sendfile('./public/index.html');
 	});
-
 };

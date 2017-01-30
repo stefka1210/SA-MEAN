@@ -86,6 +86,7 @@ body {
     margin: 0;
     //background: linear-gradient(to right, rgba(36,37,39,1) 0%, rgba(32,33,36,1) 100%);
     background: #212121;
+    background: #1a1a1a;
     font-size: 14px;
     color: #e0e0e0;
     font-family: Brandon-Medium, Helvetica, sans-serif;
@@ -102,7 +103,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);
+    /*box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);*/
 }
 
 .logo {
@@ -210,14 +211,17 @@ header {
 #stocks .sorting {
     display: flex;
     align-items: center;
-    height: 46px;
+    height: 44px;
+    padding: 0;
     margin: 0;
-    padding: 0px 0px 0px 12px;
     list-style-type: none;
+    background: #202020;
+    margin: 2px 0px;
 }
 
 #stocks .sorting li:not(:last-child) {
     margin-right: 16px;
+    padding-left: 12px;
 }
 
 #stocks .sorting li a {

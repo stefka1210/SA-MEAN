@@ -1,21 +1,5 @@
 <div id="scraper" class="content">
-    <!--<h1>Scraper</h1>-->
 
-    <!--<p>{{ tagline }}</p>-->
-
-    <!--<p>{{ bears }}</p>-->
-
-    <!--<button ng-click="getBears()">Hol Bären</button>-->
-
-
-    <!--<button ng-click="scrap()">Scrap</button>-->
-
-    <!--<input type="text" ng-model="bearName" placeholder="Enter a bearname here">-->
-    <!--<span>{{ bearName }}</span>-->
-
-    <!--<input type="text" ng-model="bearHobby" placeholder="Enter a bearhobby here">-->
-    <!--<span>{{ bearHobby }}</span>-->
-    <!--<button ng-click="postBear()">Post bear</button>-->
     <div class="subMenu">
         <div class="menuHead">Stock Setting</div>
 
@@ -69,7 +53,10 @@
             </form>
             <br />
             <form name="scrapForm" ng-submit="submitForm()">
-                <button ng-click="scrapRates()">Scrap Rates</button>
+                <button ng-click="scrapRates('dax')">Scrap Rates</button>
+            </form>
+            <form name="scrapForm" ng-submit="submitForm()">
+                <button ng-click="scrapNotation('atx')">Scrap Notation</button>
             </form>
         </div>
     </div>

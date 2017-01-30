@@ -25,10 +25,22 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
 	};
 
 	// historic Rates Scraping
-	$scope.scrapRates = function(){
+	$scope.scrapRates = function(index){
 		$http({
 			method: 'Post',
-			url: 'http://localhost:8082/api/scrapRates/',
+			url: 'http://localhost:8082/api/scrapRates/' + index,
+			body : {'Content-Type': 'application/x-www-form-urlencoded'},
+		}).then(
+			function(response) {
+				console.log(response.data.message);
+			});
+	};
+
+	// Notation
+	$scope.scrapNotation = function(index){
+		$http({
+			method: 'Post',
+			url: 'http://localhost:8082/api/scrapNotation/' + index,
 			body : {'Content-Type': 'application/x-www-form-urlencoded'},
 		}).then(
 			function(response) {
