@@ -383,6 +383,30 @@ form button {
     flex-direction: column;
     margin-bottom: 20px;
 }
+form.scrapingTime {
+    margin-top: 20px;
+}
+
+form.scrapingTime .scrapRow {
+    display: flex;
+    flex-direction: row;
+}
+
+form.scrapingTime .selectWrap {
+    flex: 1 1 1px;
+    margin-left: 10px;
+}
+form.scrapingTime select {
+    width: 100%;
+}
+
+form.scrapingTime .selectWrap:first-child {
+    margin-left: 0px;
+}
+
+form.scrapingTime button {
+    margin-top: 10px;
+}
 
 /* BEGIN StockDetailView */
 .stockDetailWrap {

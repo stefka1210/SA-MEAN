@@ -51,9 +51,63 @@
             <form name="scrapForm" ng-submit="submitForm()">
                 <button ng-click="scrapStock('atx')">atx</button>
             </form>
-            <br />
             <form name="scrapForm" ng-submit="submitForm()">
+                <button ng-click="getStockNames('dax')">getnames of dax</button>
+            </form>
+            <br />
+            <!-- <form name="scrapForm" ng-submit="submitForm()">
                 <button ng-click="scrapRates('dax')">Scrap Rates</button>
+            </form> -->
+            <form class="scrapingTime" ng-submit="submitForm()">
+                <div class="scrapRow">
+                    <div class="selectWrap">
+                        <div class="">Index:</div>
+                        <select ng-model="index">
+                            <option value="dax">DAX
+                            <option value="mdax">MDAX
+                            <option value="tecdax">TECDAX
+                            <option value="sdax">SDAX
+                            <option value="smallcaps_de">SMALLCAPS-DE
+                            <option value="euro-stoxx-600">EURO STOXX 600
+                            <option value="dowjones">DOWJONES
+                            <option value="nasdaq">NASDAQ
+                            <option value="sp-500">S&amp;P 500
+                            <option value="smi">SMI
+                            <option value="atx">ATX
+                        </select>
+                    </div>
+                    <div class="selectWrap">
+                        <div class="">Time</div>
+                        <select ng-model="timeAmount">
+                            <option value="1">1
+                            <option value="2">2
+                            <option value="3">3
+                            <option value="4">4
+                            <option value="5">5
+                            <option value="6">6
+                            <option value="7">7
+                            <option value="8">8
+                            <option value="9">9
+                            <option value="10">10
+                            <option value="11">11
+                            <option value="12">12
+                            <option value="13">13
+                            <option value="14">14
+                            <option value="15">15
+                            <option value="16">16
+                        </select>
+                    </div>
+                    <div class="selectWrap">
+                        <div class="">&nbsp;</div>
+                        <select ng-model="timeUnit">
+                            <option value="D">Day
+                            <option value="W">Week
+                            <option value="M">Month
+                            <option value="Y">Year
+                        </select>
+                    </div>
+                </div>
+                <button ng-click="scrapHistoricRates(index,timeAmount,timeUnit)">{{index}} {{timeAmount}} {{timeUnit}}</button>
             </form>
             <form name="scrapForm" ng-submit="submitForm()">
                 <button ng-click="scrapNotation('atx')">Scrap Notation</button>

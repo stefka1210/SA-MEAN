@@ -1,7 +1,7 @@
 /**
  * Created by stefka1210 on 23.12.15.
  */
-
+var _ 				= require('lodash');
 var Xray            = require('x-ray');
 var x               = Xray(
 //     {
@@ -33,18 +33,10 @@ module.exports = function(url) {
                     return;
                 }
                 var rates = [];
-                console.log('type: ' + typeof rates);
 
                 for(var j=1; j < result.rows.length; j++) {
-                    //console.log(j);
-                    //console.log('inner: ' + result.rows[j].values)
-                    // for(var i=0;i < 5; i++) {
-                    //     //console.log('inner: ' + result.rows[j].values[i]);
-                        //console.log('laenge:' + result.rows.length);
-                    //     rates.push(result.rows[j].values[i]);
-                    // }
                     var rate = {
-                            date: result.rows[j].values[0],
+                            date: _.trim(result.rows[j].values[0]),
                             start: result.rows[j].values[1],
                             high: result.rows[j].values[2],
                             low: result.rows[j].values[3],
@@ -54,8 +46,6 @@ module.exports = function(url) {
 
                     rates.push(rate);
                 }
-                //console.log(typeof result.rows[j].values);
-                console.log('type: ' + typeof rates);
                 resolve(rates);
         });
     });

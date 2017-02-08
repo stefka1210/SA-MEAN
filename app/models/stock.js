@@ -41,8 +41,8 @@ var StockSchema   = new Schema({
         epsPoints: { type: String},
         sumPoints: { type: Number}
     }],
-    rates: [{
-        rate: {
+    rates: [
+         {
             date: {type: String},
             start: {type: String},
             high: {type: String},
@@ -50,7 +50,7 @@ var StockSchema   = new Schema({
             end: {type: String},
             volume: {type: String}
         }
-    }]
+    ]
 
 });
 

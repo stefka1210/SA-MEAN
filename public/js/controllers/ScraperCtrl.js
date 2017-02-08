@@ -36,11 +36,34 @@ angular.module('ScraperCtrl', []).controller('ScraperController', function($scop
 			});
 	};
 
+	$scope.scrapHistoricRates = function(index, timeAmount, timeUnit){
+		$http({
+			method: 'Post',
+			url: 'http://localhost:8082/api/scrapHistoricRates/' + index + '/' + timeAmount + '/' +  timeUnit,
+			body : {'Content-Type': 'application/x-www-form-urlencoded'},
+		}).then(
+			function(response) {
+				console.log(response.data.message);
+			});
+	};
+
+
 	// Notation
 	$scope.scrapNotation = function(index){
 		$http({
 			method: 'Post',
 			url: 'http://localhost:8082/api/scrapNotation/' + index,
+			body : {'Content-Type': 'application/x-www-form-urlencoded'},
+		}).then(
+			function(response) {
+				console.log(response.data.message);
+			});
+	};
+
+	$scope.getStockNames = function(index){
+		$http({
+			method: 'Post',
+			url: 'http://localhost:8082/api/getStockNames/' + index,
 			body : {'Content-Type': 'application/x-www-form-urlencoded'},
 		}).then(
 			function(response) {
