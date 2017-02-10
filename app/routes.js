@@ -9,19 +9,6 @@ var ScrapKpis    	= require('./scraper/scrapKpis');
 var ScrapNotation    	= require('./scraper/scrapNotation');
 var ScrapHistoric    	= require('./scraper/scrapHistoric');
 
-//moment.locale('de');
-// var startDate = moment().locale('de');
-// startDate = startdate.subtract(3, "month").format("DD.MM.YYYY");
-// console.log('calcBackDate: ' + startDate);
-
-// var datetime = new Date();
-// var currentdate = datetime.getDate() + "."
-//                 + (datetime.getMonth()+1)  + "."
-//                 + (datetime.getFullYear()-1) //TODO: ziehe timeUnit und timeAmount von currentdate ab
-//
-// 				console.log(currentdate);
-// 				console.log(datetime);
-
 module.exports = function(app) {
 
 	function handleError(err) {
@@ -43,7 +30,6 @@ module.exports = function(app) {
 			res.json({ message: 'hooray! welcome to our api!' });
 		});
 
-
     // create a stock (accessed at POST http://localhost:8080/api/addStock)
 	router.route('/addStock')
 
@@ -55,7 +41,6 @@ module.exports = function(app) {
 			stock.ratesurl = req.body.ratesurl;
 			stock.indexMembership.push(req.body.indexMembership.toLowerCase());
 
-
 			// save the stock and check for errors
 			stock.save(function(err) {
 				if (err)
@@ -66,28 +51,21 @@ module.exports = function(app) {
 		});
 
 	router.route('/getStockNames/:index')
-
 		.post(function(req, res, next) {
-
-		//	const stream = Stock.find({ 'indexMembership': req.params.index }).stream();
-
-			// Print every document that matches the query, one at a time
-		//	stream.on('data', doc => { console.log(doc); });
-
-
-
 			const cursor = Stock.find({ 'indexMembership': req.params.index }).cursor();
 
-			// Print the first document. Can also use callbacks
-			cursor.next.then(doc => {
-				console.log(doc);
-			});
+			function scrapIt(doc) {
+				var doc = doc;
+				ScrapKpis(doc.kpiurl).then(function(result){
+					//console.log(result);
+					doc.kpiScraps.push(result);
+					doc.save();
+					//console.log('scrap finished for: ' + doc.name);
+				});
+			}
 
-			// const message = 'huhu, names läuft: ';
-			// console.log(message + req.params.index);
-
-	// cursor.eachAsync(doc => superagent.post('/saveDoc', doc)).
-	//   then(() => console.log('done!'));
+			cursor.eachAsync(doc => scrapIt(doc)).
+  			then(() => console.log('done!'));
 
 	});
 
@@ -192,7 +170,6 @@ module.exports = function(app) {
 
 	router.route('/scrapHistoricRates/:index/:timeAmount/:timeUnit')
 		.post(function(req, res, next) {
-			//console.log('index: ' + req.params.index + '|| timeAmount: ' + req.params.timeAmount + '|| timeUnit: ' + req.params.timeUnit);
 			var timeAmount = req.params.timeAmount;
 			var timeUnit = req.params.timeUnit;
 
@@ -219,7 +196,7 @@ module.exports = function(app) {
 
                         console.log('timePeriod: ' + timePeriod);
                         var startDate = moment().locale('de');
-                        startDate = startDate.subtract(3, timePeriod).format("DD.MM.YYYY");
+                        startDate = startDate.subtract(timeAmount, timePeriod).format("DD.MM.YYYY");
                         console.log('calcBackDate: ' + startDate);
 
 						var constructedUrl = "http://www.onvista.de/onvista/times+sales/popup/historische-kurse/?notationId=" +
@@ -316,14 +293,6 @@ module.exports = function(app) {
 	router.route('/findbyindex/:index')
 		// finde eine Aktie mit indexMembership dax
 		.get(function(req, res) {
-
-			//Stock.find({ 'indexMembership': req.params.index },   {} , function (err, stocksInIndex) {
-			//	if (err) return handleError(err);
-            //
-			//		console.log(stocksInIndex[0]);
-			//		res.json(stocksInIndex[0]);
-            //
-			//})
 
 			var query = Stock.find({'indexMembership': req.params.index});
 			console.log('----> Stocks für '+ req.params.index + ' gesendet');

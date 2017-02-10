@@ -7,7 +7,7 @@ var x               = Xray();
 
 module.exports = function(url) {
 
-    //console.log('scrap url: ' + url);
+    console.log('scrap url: ' + url);
 
     return new Promise(function(resolve, reject) {
         x(url,
@@ -187,7 +187,8 @@ module.exports = function(url) {
 
                 resolve(resultData);
 
-                console.log('scrapstep finished');
+                //console.log('scrapstep finished');
+                //console.log('scrap finished: ' + url);
 
         });
     });
